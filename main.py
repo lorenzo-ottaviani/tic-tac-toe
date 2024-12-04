@@ -63,23 +63,27 @@ def conditions_victoire(grille):
     :return: Une valeur booléenne permettant de savoir si un joueur a gagné le jeu.
     """
     victoire = False
+    symbole_x = ROUGE + "X" + NEUTRE  # # Symbole "X" de couleur rouge
+    symbole_o = BLEU + "O" + NEUTRE  # Symbole "O" de couleur bleue
 
     # Conditions de victoire en ligne
     for colonne in range(3):
-        if (grille[colonne][0] == grille[colonne][1] == grille[colonne][2] == "X"
-                or grille[colonne][0] == grille[colonne][1] == grille[colonne][2] == "O"):
+        if (grille[colonne][0] == grille[colonne][1] == grille[colonne][2] == symbole_x
+                or grille[colonne][0] == grille[colonne][1] == grille[colonne][2] == symbole_o):
             victoire = True
 
     # Conditions de victoire en colonne
     for ligne in range(3):
-        if (grille[0][ligne] == grille[1][ligne] == grille[2][ligne] == "X"
-                or grille[0][ligne] == grille[1][ligne] == grille[2][ligne] == "O"):
+        if (grille[0][ligne] == grille[1][ligne] == grille[2][ligne] == symbole_x
+                or grille[0][ligne] == grille[1][ligne] == grille[2][ligne] == symbole_o):
             victoire = True
 
     # Conditions de victoire en diagonale
-    if grille[0][0] == grille[1][1] == grille[2][2] == "X" or grille[0][0] == grille[1][1] == grille[2][2] == "O":
+    if (grille[0][0] == grille[1][1] == grille[2][2] == symbole_x
+            or grille[0][0] == grille[1][1] == grille[2][2] == symbole_o):
         victoire = True
-    elif grille[0][2] == grille[1][1] == grille[2][0] == "X" or grille[0][2] == grille[1][1] == grille[2][0] == "O":
+    elif (grille[0][2] == grille[1][1] == grille[2][0] == symbole_x
+          or grille[0][2] == grille[1][1] == grille[2][0] == symbole_o):
         victoire = True
 
     return victoire
@@ -96,9 +100,9 @@ def tour_courant(grille, joueur):
 
     # Choix du symbole en fonction du joueur
     if joueur == 1:
-        symbole = ROUGE + "X" + NEUTRE
+        symbole = ROUGE + "X" + NEUTRE  # Symbole "X" de couleur rouge
     else:
-        symbole = BLEU + "O" + NEUTRE
+        symbole = BLEU + "O" + NEUTRE  # # Symbole "O" de couleur bleue
 
     # Déroulé d'un tour du jeu
     k = -1
@@ -136,7 +140,7 @@ for tour_jeu in range(1, 10):  # Déroule les 9 tours du jeu
     tour_courant(grille_morpion, joueur_courant)  # Joue le tour actuel
     dessine_morpion(grille_morpion)  # Dessine le morpion du tour actuel
     if conditions_victoire(grille_morpion) is True:  # Vérification des conditions de victoire
-        print(f"Victoire du {joueur_courant}!")
+        print(f"Victoire du Joueur {joueur_courant}!")
         break  # Arrète le jeu si un joueur a gagné
 
 if conditions_victoire(grille_morpion) is False:
