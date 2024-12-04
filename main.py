@@ -26,17 +26,26 @@ grille_victoire8 = [[" ", " ", "X"], [" ", "X", " "], ["X", " ", " "]]
 # Fonction qui permet de dessiner le morpion
 def dessine_morpion(matrice):
     """
-    Fonction qui dessine la matrice du morpion graphiquement (sans return).
+    Fonction qui dessine la matrice du morpion graphiquement avec des bordures horizontales continues et moins d'espaces.
     :param matrice: La matrice du morpion.
     :return: ∅
     """
-    if len(matrice) > 0:  # Vérifie que la matrice à déssiner ne soit pas nulle.
-        for colonne in range(len(matrice)):
-            for ligne in range(len(matrice[colonne])):
-                print(matrice[colonne][ligne], end=" ")
-            print()
-    else:
+    # Détermine le nombre de lignes de la grille
+    taille = len(matrice)
+
+    # Affichage de la bordure supérieure
+    print("  " + "-" * (6 * taille - 1))
+
+    # Affichage de chaque ligne de la grille avec des bords
+    for bord, ligne in enumerate(matrice):
+        print("  |", end=" ")
+        for cellule in ligne:
+            print(f" {cellule} ", end="| ")
         print()
+
+        # Affichage de la bordure horizontale après chaque ligne
+        if bord < taille:
+            print("  " + "-" * (6 * taille - 1))
 
 
 # Fonction qui permet de déterminer si quelqu'un a gagné le jeu
@@ -84,7 +93,7 @@ def tour_courant(grille, joueur):
     else:
         symbole = "O"
 
-    # Déroulé du tour de jeu
+    # Déroulé d'un tour du jeu
     k = -1
     while k < 0:
         case_joueur = (int(input(f"Joueur {joueur} : Dans quelle case veux-tu te placer ?\nLigne : ")) - 1,
