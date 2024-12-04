@@ -78,12 +78,12 @@ def tic_tac_toe():
                     position = ia_medium(board, "O")
             else:
                 try:
-                    position = int(input(f"Joueur {current_player}, choisissez une case (0-8) : "))
+                    position = int(input(f"Joueur {current_player}, choisissez une case (1-9) : ") -1)
                     if position < 0 or position > 8 or board[position] != " ":
                         print("Position invalide. Réessayez.")
                         continue
                 except ValueError:
-                    print("Veuillez entrer un chiffre valide (0-8).")
+                    print("Veuillez entrer un chiffre valide (1-9).")
                     continue
 
             # Place le signe sur le plateau
@@ -121,7 +121,6 @@ if __name__ == "__main__":
 
  # Fonctionnalités :
 #Mode de jeu :
-
 #2 joueurs humains.
 #Joueur contre une IA basique.
 #Intelligence Artificielle :
