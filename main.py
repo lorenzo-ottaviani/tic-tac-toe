@@ -1,17 +1,15 @@
 """
 Auteur : Lorenzo OTTAVIANI
-Date : 03/12/2024 9h54
+Date : 04/12/2024 11h40
 But du programme :
     Créer un jeu de tic tac toe (morpion) avec deux joueurs humains.
-Entrée : ∅
+Entrée : case_joueur : Permet au joueur qui joue de choisir la case où il veut jouer sur la grille du jeu.
 Sortie : Le tic tac toe.
 """
 
-# Grille du jeu
-grille_morpion = [[" ", " ", " "], [" ", " ", " "], [" ", " ", " "]]
-print(grille_morpion)
+"""
+Rappel des conditions de victoire :
 
-# Conditions de victoire
 grille_victoire1 = [["X", "X", "X"], [" ", " ", " "], [" ", " ", " "]]
 grille_victoire2 = [[" ", " ", " "], ["X", "X", "X"], [" ", " ", " "]]
 grille_victoire3 = [[" ", " ", " "], [" ", " ", " "], ["X", "X", "X"]]
@@ -22,17 +20,17 @@ grille_victoire6 = [[" ", " ", "X"], [" ", " ", "X"], [" ", " ", "X"]]
 
 grille_victoire7 = [["X", " ", " "], [" ", "X", " "], [" ", " ", "X"]]
 grille_victoire8 = [[" ", " ", "X"], [" ", "X", " "], ["X", " ", " "]]
+"""
 
 
 # Fonction qui permet de dessiner le morpion
 def dessine_morpion(matrice):
-
     """
     Fonction qui dessine la matrice du morpion graphiquement (sans return).
     :param matrice: La matrice du morpion.
     :return: ∅
     """
-    if len(matrice) > 0:
+    if len(matrice) > 0:  # Vérifie que la matrice à déssiner ne soit pas nulle.
         for colonne in range(len(matrice)):
             for ligne in range(len(matrice[colonne])):
                 print(matrice[colonne][ligne], end=" ")
@@ -41,18 +39,15 @@ def dessine_morpion(matrice):
         print()
 
 
-# Dessin du morpion dans le terminal
-dessine_morpion([["X", "O", " "], [" ", "X", "O"], [" ", " ", "X"]])
-
-
 # Fonction qui permet de déterminer si quelqu'un a gagné le jeu
 def conditions_victoire(grille):
     """
     Fonction qui determine si l'un des deux joueurs a gagné le jeu.
     :param grille: La grille du morpion.
-    :return:
+    :return: Une valeur booléenne permettant de savoir si un joueur a gagné le jeu.
     """
     victoire = False
+
     # Conditions de victoire en ligne
     for colonne in range(3):
         if (grille[colonne][0] == grille[colonne][1] == grille[colonne][2] == "X"
@@ -74,7 +69,50 @@ def conditions_victoire(grille):
     return victoire
 
 
-# Exemple de victoire (avec message)
-grillage = [[" ", " ", " "], ["X", "X", "X"], [" ", " ", " "]]
-if conditions_victoire(grillage) is True:
-    print("Victoire !")
+# Fonction qui déroule un tour du jeu.
+def tour_courant(grille, joueur):
+    """
+    Fonction qui déroule un tour du jeu.
+    :param grille: La grille du morpion.
+    :param joueur: Le joueur qui joue actuellement (1 pour joueur 1 et 2 pour joueur 2).
+    :return: Effectue un tour du jeu.
+    """
+
+    # Choix du symbole en fonction du joueur
+    if joueur == 1:
+        symbole = "X"
+    else:
+        symbole = "O"
+
+    # Déroulé du tour de jeu
+    k = -1
+    while k < 0:
+        case_joueur = (int(input(f"Joueur {joueur} : Dans quelle case veux-tu te placer ?\nLigne : ")) - 1,
+                       int(input("Colonne : ")) - 1)  # Demande au joueur de choisir la case ou il souhaite jouer
+        if grille[case_joueur[0]][case_joueur[1]] == " ":  # Vérifie que la case soit libre
+            grille[case_joueur[0]][case_joueur[1]] = symbole
+            k = 1
+        else:
+            print("Case occupée")
+
+    return grille
+
+
+# Programme principal
+grille_morpion = [[" ", " ", " "], [" ", " ", " "], [" ", " ", " "]]  # Grille du morpion initiale
+dessine_morpion(grille_morpion)  # Dessine le morpion du début
+
+for tour_jeu in range(1, 10):  # Déroule les 9 tours du jeu
+    print(f"Tour {tour_jeu}")  # Rappelle au joueur le tour actuel
+    if tour_jeu % 2 != 0:  # Détermine quel joueur doit jouer ce tour-ci
+        joueur_courant = 1
+    else:
+        joueur_courant = 2
+    tour_courant(grille_morpion, joueur_courant)  # Joue le tour actuel
+    dessine_morpion(grille_morpion)  # Dessine le morpion du tour actuel
+    if conditions_victoire(grille_morpion) is True:  # Vérification des conditions de victoire
+        print(f"Victoire du {joueur_courant}!")
+        break  # Arrète le jeu si un joueur a gagné
+
+if conditions_victoire(grille_morpion) is False:
+    print("Match nul!")  # Indique que le match est nul si personne n'a gagné
