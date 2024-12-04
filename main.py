@@ -1,6 +1,6 @@
 """
 Auteur : Lorenzo OTTAVIANI
-Date : 04/12/2024 11h40
+Date : 04/12/2024 15h39
 But du programme :
     Créer un jeu de tic tac toe (morpion) avec deux joueurs humains.
 Entrée : case_joueur : Permet au joueur qui joue de choisir la case où il veut jouer sur la grille du jeu.
@@ -26,7 +26,7 @@ grille_victoire8 = [[" ", " ", "X"], [" ", "X", " "], ["X", " ", " "]]
 # Fonction qui permet de dessiner le morpion
 def dessine_morpion(matrice):
     """
-    Fonction qui dessine la matrice du morpion graphiquement avec des bordures horizontales continues et moins d'espaces.
+    Fonction qui dessine la matrice du morpion graphiquement avec des bordures.
     :param matrice: La matrice du morpion.
     :return: ∅
     """
@@ -96,13 +96,20 @@ def tour_courant(grille, joueur):
     # Déroulé d'un tour du jeu
     k = -1
     while k < 0:
-        case_joueur = (int(input(f"Joueur {joueur} : Dans quelle case veux-tu te placer ?\nLigne : ")) - 1,
-                       int(input("Colonne : ")) - 1)  # Demande au joueur de choisir la case ou il souhaite jouer
-        if grille[case_joueur[0]][case_joueur[1]] == " ":  # Vérifie que la case soit libre
-            grille[case_joueur[0]][case_joueur[1]] = symbole
-            k = 1
-        else:
-            print("Case occupée")
+        try:
+            case_joueur = (int(input(f"Joueur {joueur} : Dans quelle case veux-tu te placer ?\nLigne : ")) - 1,
+                           int(input("Colonne : ")) - 1)  # Demande au joueur de choisir la case ou il souhaite jouer
+            if grille[case_joueur[0]][case_joueur[1]] == " ":  # Vérifie que la case soit libre
+                grille[case_joueur[0]][case_joueur[1]] = symbole
+                k = 1
+            else:
+                print("Case occupée.")  # Cas où la case est occupée
+
+        except IndexError:  # Cas où la case est en dehors de la grille
+            print("Case en dehors de la grille.")
+
+        except ValueError:  # Cas où on a rentré autre chose qu'un nombre
+            print("Ce n'est pas un nombre !\n")
 
     return grille
 
