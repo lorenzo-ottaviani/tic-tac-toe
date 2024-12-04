@@ -126,22 +126,32 @@ def tour_courant(grille, joueur):
     return grille
 
 
+# Fonction principale du jeu
+def morpion():
+    """
+    Fonction qui permet de jouer au morpion (en utilisant les fonctions précédentes).
+    :return: Une partie du jeu du morpion.
+    """
+    print("Bienvenue dans notre version du morpion !\nVoici la grille du jeu vide :\n")
+    grille_morpion = [[" ", " ", " "], [" ", " ", " "], [" ", " ", " "]]  # Grille du morpion initiale
+    dessine_morpion(grille_morpion)  # Dessine le morpion du début
+    print("Le jeu durera au maximum 9 tours, à toi de gagner avant !\nBonne chance !\n")
+
+    for tour_jeu in range(1, 10):  # Déroule les 9 tours du jeu
+        print(VERT + f"Tour {tour_jeu}\n" + NEUTRE)  # Rappelle au joueur le tour actuel
+        if tour_jeu % 2 != 0:  # Détermine quel joueur doit jouer ce tour-ci
+            joueur_courant = 1  # Lors d'un tour impair, le joueur avec "X" joue.
+        else:
+            joueur_courant = 2  # Lors d'un tour pair, le joueur avec "O" joue.
+        tour_courant(grille_morpion, joueur_courant)  # Joue le tour actuel
+        dessine_morpion(grille_morpion)  # Dessine le morpion du tour actuel
+        if conditions_victoire(grille_morpion):  # Vérification des conditions de victoire
+            print(f"Victoire du Joueur {joueur_courant}!")
+            break  # Arrète le jeu si un joueur a gagné
+
+    if not conditions_victoire(grille_morpion):
+        print("Match nul!")  # Indique que le match est nul si personne n'a gagné
+
+
 # Programme principal
-print()
-grille_morpion = [[" ", " ", " "], [" ", " ", " "], [" ", " ", " "]]  # Grille du morpion initiale
-dessine_morpion(grille_morpion)  # Dessine le morpion du début
-
-for tour_jeu in range(1, 10):  # Déroule les 9 tours du jeu
-    print(VERT + f"Tour {tour_jeu}\n" + NEUTRE)  # Rappelle au joueur le tour actuel
-    if tour_jeu % 2 != 0:  # Détermine quel joueur doit jouer ce tour-ci
-        joueur_courant = 1  # Lors d'un tour impair, le joueur avec "X" joue.
-    else:
-        joueur_courant = 2  # Lors d'un tour pair, le joueur avec "O" joue.
-    tour_courant(grille_morpion, joueur_courant)  # Joue le tour actuel
-    dessine_morpion(grille_morpion)  # Dessine le morpion du tour actuel
-    if conditions_victoire(grille_morpion) is True:  # Vérification des conditions de victoire
-        print(f"Victoire du Joueur {joueur_courant}!")
-        break  # Arrète le jeu si un joueur a gagné
-
-if conditions_victoire(grille_morpion) is False:
-    print("Match nul!")  # Indique que le match est nul si personne n'a gagné
+morpion()
