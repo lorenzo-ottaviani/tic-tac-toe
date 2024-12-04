@@ -22,6 +22,12 @@ grille_victoire7 = [["X", " ", " "], [" ", "X", " "], [" ", " ", "X"]]
 grille_victoire8 = [[" ", " ", "X"], [" ", "X", " "], ["X", " ", " "]]
 """
 
+# Définition des couleurs du jeu
+ROUGE = "\033[31m"
+VERT = "\033[32m"
+BLEU = "\033[34m"
+NEUTRE = "\033[0m"
+
 
 # Fonction qui permet de dessiner le morpion
 def dessine_morpion(matrice):
@@ -46,6 +52,7 @@ def dessine_morpion(matrice):
         # Affichage de la bordure horizontale après chaque ligne
         if bord < taille:
             print("  " + "-" * (6 * taille - 1))
+    print()
 
 
 # Fonction qui permet de déterminer si quelqu'un a gagné le jeu
@@ -89,9 +96,9 @@ def tour_courant(grille, joueur):
 
     # Choix du symbole en fonction du joueur
     if joueur == 1:
-        symbole = "X"
+        symbole = ROUGE + "X" + NEUTRE
     else:
-        symbole = "O"
+        symbole = BLEU + "O" + NEUTRE
 
     # Déroulé d'un tour du jeu
     k = -1
@@ -102,11 +109,12 @@ def tour_courant(grille, joueur):
             if grille[case_joueur[0]][case_joueur[1]] == " ":  # Vérifie que la case soit libre
                 grille[case_joueur[0]][case_joueur[1]] = symbole
                 k = 1
+                print()
             else:
-                print("Case occupée.")  # Cas où la case est occupée
+                print("\nCase occupée.\n")  # Cas où la case est occupée
 
         except IndexError:  # Cas où la case est en dehors de la grille
-            print("Case en dehors de la grille.")
+            print("Case en dehors de la grille.\n")
 
         except ValueError:  # Cas où on a rentré autre chose qu'un nombre
             print("Ce n'est pas un nombre !\n")
@@ -115,15 +123,16 @@ def tour_courant(grille, joueur):
 
 
 # Programme principal
+print()
 grille_morpion = [[" ", " ", " "], [" ", " ", " "], [" ", " ", " "]]  # Grille du morpion initiale
 dessine_morpion(grille_morpion)  # Dessine le morpion du début
 
 for tour_jeu in range(1, 10):  # Déroule les 9 tours du jeu
-    print(f"Tour {tour_jeu}")  # Rappelle au joueur le tour actuel
+    print(VERT + f"Tour {tour_jeu}\n" + NEUTRE)  # Rappelle au joueur le tour actuel
     if tour_jeu % 2 != 0:  # Détermine quel joueur doit jouer ce tour-ci
-        joueur_courant = 1
+        joueur_courant = 1  # Lors d'un tour impair, le joueur avec "X" joue.
     else:
-        joueur_courant = 2
+        joueur_courant = 2  # Lors d'un tour pair, le joueur avec "O" joue.
     tour_courant(grille_morpion, joueur_courant)  # Joue le tour actuel
     dessine_morpion(grille_morpion)  # Dessine le morpion du tour actuel
     if conditions_victoire(grille_morpion) is True:  # Vérification des conditions de victoire
