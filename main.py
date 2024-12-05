@@ -105,14 +105,14 @@ def tour_courant(grille, joueur):
         symbole = BLEU + "O" + NEUTRE  # # Symbole "O" de couleur bleue
 
     # Déroulé d'un tour du jeu
-    k = -1
-    while k < 0:
+    case_valide = False
+    while not case_valide:
         try:
             case_joueur = (int(input(f"Joueur {joueur} : Dans quelle case veux-tu te placer ?\nLigne : ")) - 1,
                            int(input("Colonne : ")) - 1)  # Demande au joueur de choisir la case ou il souhaite jouer
             if grille[case_joueur[0]][case_joueur[1]] == " ":  # Vérifie que la case soit libre
                 grille[case_joueur[0]][case_joueur[1]] = symbole
-                k = 1
+                case_valide = True
                 print()
             else:
                 print("\nCase occupée.\n")  # Cas où la case est occupée
