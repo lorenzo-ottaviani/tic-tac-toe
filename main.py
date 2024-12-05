@@ -144,13 +144,13 @@ def morpion():
         dessine_morpion(grille_morpion)  # Dessine le morpion du tour actuel
 
         if conditions_victoire(grille_morpion):  # Vérification des conditions de victoire
-            print(f"Victoire du Joueur {joueur_courant}!")
+            print(f"Victoire du Joueur {joueur_courant}! 🎉")
             break  # Arrète le jeu si un joueur a gagné
 
         joueur_courant = 1 if joueur_courant == 2 else 2  # Détermine quel joueur doit jouer le tour suivant
 
     if not conditions_victoire(grille_morpion):
-        print("Match nul!")  # Indique que le match est nul si personne n'a gagné
+        print("Match nul! 🤝")  # Indique que le match est nul si personne n'a gagné
 
 
 # Programme principal
