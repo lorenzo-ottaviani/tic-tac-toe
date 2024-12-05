@@ -67,15 +67,15 @@ def conditions_victoire(grille):
     symbole_o = BLEU + "O" + NEUTRE  # Symbole "O" de couleur bleue
 
     # Conditions de victoire en ligne
-    for colonne in range(3):
-        if (grille[colonne][0] == grille[colonne][1] == grille[colonne][2] == symbole_x
-                or grille[colonne][0] == grille[colonne][1] == grille[colonne][2] == symbole_o):
+    for ligne in range(3):
+        if (grille[ligne][0] == grille[ligne][1] == grille[ligne][2] == symbole_x
+                or grille[ligne][0] == grille[ligne][1] == grille[ligne][2] == symbole_o):
             victoire = True
 
     # Conditions de victoire en colonne
-    for ligne in range(3):
-        if (grille[0][ligne] == grille[1][ligne] == grille[2][ligne] == symbole_x
-                or grille[0][ligne] == grille[1][ligne] == grille[2][ligne] == symbole_o):
+    for colonne in range(3):
+        if (grille[0][colonne] == grille[1][colonne] == grille[2][colonne] == symbole_x
+                or grille[0][colonne] == grille[1][colonne] == grille[2][colonne] == symbole_o):
             victoire = True
 
     # Conditions de victoire en diagonale
