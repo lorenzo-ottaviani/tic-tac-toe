@@ -40,18 +40,18 @@ def dessine_morpion(matrice):
     taille = len(matrice)
 
     # Affichage de la bordure supérieure
-    print("  " + "-" * (6 * taille - 1))
+    print("  " + "-" * (5 * taille - 1))
 
     # Affichage de chaque ligne de la grille avec des bords
     for bord, ligne in enumerate(matrice):
         print("  |", end=" ")
         for cellule in ligne:
-            print(f" {cellule} ", end="| ")
+            print(f"{cellule} ", end="| ")
         print()
 
         # Affichage de la bordure horizontale après chaque ligne
         if bord < taille:
-            print("  " + "-" * (6 * taille - 1))
+            print("  " + "-" * (5 * taille - 1))
     print()
 
 
@@ -136,18 +136,18 @@ def morpion():
     grille_morpion = [[" ", " ", " "], [" ", " ", " "], [" ", " ", " "]]  # Grille du morpion initiale
     dessine_morpion(grille_morpion)  # Dessine le morpion du début
     print("Le jeu durera au maximum 9 tours, à toi de gagner avant !\nBonne chance !\n")
+    joueur_courant = 1  # Défini le joueur qui joue au début
 
     for tour_jeu in range(1, 10):  # Déroule les 9 tours du jeu
         print(VERT + f"Tour {tour_jeu}\n" + NEUTRE)  # Rappelle au joueur le tour actuel
-        if tour_jeu % 2 != 0:  # Détermine quel joueur doit jouer ce tour-ci
-            joueur_courant = 1  # Lors d'un tour impair, le joueur avec "X" joue.
-        else:
-            joueur_courant = 2  # Lors d'un tour pair, le joueur avec "O" joue.
         tour_courant(grille_morpion, joueur_courant)  # Joue le tour actuel
         dessine_morpion(grille_morpion)  # Dessine le morpion du tour actuel
+
         if conditions_victoire(grille_morpion):  # Vérification des conditions de victoire
             print(f"Victoire du Joueur {joueur_courant}!")
             break  # Arrète le jeu si un joueur a gagné
+
+        joueur_courant = 1 if joueur_courant == 2 else 2  # Détermine quel joueur doit jouer le tour suivant
 
     if not conditions_victoire(grille_morpion):
         print("Match nul!")  # Indique que le match est nul si personne n'a gagné
