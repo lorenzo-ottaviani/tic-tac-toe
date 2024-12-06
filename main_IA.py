@@ -1,6 +1,6 @@
 """
-Auteur : Lorenzo OTTAVIANI
-Date : 04/12/2024 15h39
+Auteur : Lorenzo OTTAVIANI, Anissa OURDJINI et Diambor NDIAYE
+Date : 05/12/2024 16h20
 But du programme :
     Créer un jeu de tic tac toe (morpion) avec deux joueurs humains.
 Entrée : case_joueur : Permet au joueur qui joue de choisir la case où il veut jouer sur la grille du jeu.
